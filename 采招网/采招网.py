@@ -33,7 +33,7 @@ for page in range(1, 3): #随意填写页数
     response = requests.post('https://interface.bidcenter.com.cn/search/GetSearchProHandler.ashx', headers=headers, data=data).text
     # print(response)
     reslut = execjs.compile(open('./采招网2.js', 'r', encoding='utf-8').read()).call('AESDecrypt', response)
-    # print(reslut)
+    print(reslut)
     list_data = reslut['other2']['listData']
     for data in list_data:
         title = data['news_title_show']
