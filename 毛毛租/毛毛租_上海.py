@@ -46,7 +46,6 @@ headers = {
     'sec-ch-ua-platform': '"Windows"',
 }
 
-
 # 运行JavaScript文件作为子进程
 process = subprocess.Popen(['node', './maomaozu.js'], stdout=subprocess.PIPE, text=True)
 
@@ -55,19 +54,19 @@ data, _ = process.communicate()
 data_list = data.split(',')
 for i in data_list:
     response = requests.post('https://www.maomaozu.com/index/build.json', cookies=cookies, headers=headers, data=i).text
-    js_code = execjs.compile(open('./毛毛租_数据解密.js', 'r', encoding='utf-8').read()).call('aes_decrypt',response)
+    js_code = execjs.compile(open('./毛毛租_数据解密.js', 'r', encoding='utf-8').read()).call('aes_decrypt', response)
     datas = json.loads(js_code)
     data_list = datas['list']
     for data in data_list:
         Name = data['Name']
-        Line = str(data['Line']) #路线
+        Line = str(data['Line'])  # 路线
         Address = str(data['Address'])
-        Price = data['Price'] #每平方价格
-        RoomList = str(data['RoomList']) #面积
+        Price = data['Price']  # 每平方价格
+        RoomList = str(data['RoomList'])  # 面积
         UpdateTimeStr = data['UpdateTimeStr']
-        print('名称:',Name, '路线:',Line, '地址:',Address, '价格:',Price, '面积:',RoomList)
+        print('名称:', Name, '路线:', Line, '地址:', Address, '价格:', Price, '面积:', RoomList)
         insert_query = "INSERT INTO maomaozu (name, Line, Address, Price, RoomList,UpdateTimeStr) VALUES (%s, %s, %s,%s, %s, %s)"
-        data_tuple = (Name, Line, Address, Price, RoomList,UpdateTimeStr)
+        data_tuple = (Name, Line, Address, Price, RoomList, UpdateTimeStr)
 
         cursor.execute(insert_query, data_tuple)
 

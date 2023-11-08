@@ -59,7 +59,7 @@ function BodyEncrypt(data) {
     return w
 }
 
-//数据解密
+//响应数据解密
 function Mt (t) {
     kt = CryptoJs.enc.Utf8.parse("CaQZujR9wocJH9NY0dafyhd9=NHmEbwf");
     t = CryptoJs.AES.decrypt(t, kt, {
