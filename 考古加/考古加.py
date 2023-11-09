@@ -26,7 +26,7 @@ headers = {
 
 params = {
     'limit': '50',
-    'page': '2',
+    'page': '3',
     'sort_field': 'inc_fans_count',
     'sort': '0',
 }
@@ -40,14 +40,16 @@ json_data = {
     'city_id': 0,
 }
 url2 = '/api/rank/author/fans/increment'
-
+# url2 = '/api/rank/author/fans/increment'
 response = requests.post(
     'https://service.kaogujia.com/api/rank/author/fans/increment',
     params=params,
     headers=headers,
     json=json_data,
 ).json()
-text2 = response['data']
+# print(response)
+text2 = str(response['data'])
+# print(text2)
 js_code =open('./kaogujia.js','r',encoding='utf-8').read()
-code = execjs.compile(js_code).call('decrypt',text2)
+code = execjs.compile(js_code).call('main123',url2,text2)
 print(code)
