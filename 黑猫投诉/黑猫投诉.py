@@ -36,24 +36,29 @@ headers = {
     'x-requested-with': 'XMLHttpRequest',
 }
 
-keyword = '篮球'
-timestamp = round(time.time() * 1000)
-print(timestamp)
-sign = execjs.compile(open('参数加密hmts.js', 'r', encoding='utf-8').read()).call('main123', keyword, timestamp)
-print(sign)
-rs = sign['p']
-signature = sign['sign']
-for page in range(1,10):
 
+
+
+for page in range(1,10):
+    keyword = '中公教育'
+    timestamp = str(round(time.time() * 1000))
+    print(timestamp)
+    sign = execjs.compile(open('参数加密hmts.js', 'r', encoding='utf-8').read()).call('abc', timestamp,keyword)
+    print(sign)
+    rs = sign['p']
+    signature = sign['sign']
+    time1 = sign['timestamp']
     params = {
-        'ts': timestamp,
+        'ts': time1,
         'rs': rs,
         'signature': signature,
         'keywords': keyword,
         'page_size': '10',
         'page': page,
     }
+    print(params)
     print('第{page}页'.format(page=page))
+    time.sleep(1)
     response = requests.get('https://tousu.sina.com.cn/api/index/s', params=params, cookies=cookies, headers=headers).json()
     print(response)
     # lists = response['result']['data']['lists']

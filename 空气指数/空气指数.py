@@ -27,8 +27,8 @@ headers = {
 }
 m0fhOhhGL = "GETDAYDATA"
 oNLhNQ = {
-    "city": "北京",
-    "month": "201604"
+    "city": "承德",
+    "month": "201901"
 }
 hA4Nse2cT = execjs.compile(open('参数加密.js', 'r',encoding='utf-8').read()).call('post_data',m0fhOhhGL,oNLhNQ)
 print(hA4Nse2cT)
